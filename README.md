@@ -17,7 +17,13 @@ This script will build a docker image(The Dockerfile exists in docker/), which i
 You can also download from [releases](https://github.com/CaoRX/sharp-heic/releases). Currently(1.0.0) the layer file is for arm64 architecture on Node.js 20.x runtime, so you can build your own layer if needed.
 
 ## Usage
-To use this layer, you can create a AWS Lambda function under corresponding runtime(Node.js 20.x) and architecture(e.g. arm64). Note that you need to set environment variable LIBHEIF_PLUGIN_PATH to /opt/lib/libheif. Then you need to upload this sharp-layer.zip as a layer, and append it to your function. A sample function may look like:
+One example can be found in https://github.com/CaoRX/heic2jpg-api .
+
+To use this layer, you can create a AWS Lambda function under corresponding runtime(Node.js 20.x) and architecture(e.g. arm64). Note that you need to set environment variable LIBHEIF_PLUGIN_PATH to /opt/lib/libheif in Lambda function configuration(which can also be set in the console, or with SDK):
+```sh
+LIBHEIF_PLUGIN_PATH=/opt/lib/libheif
+```
+Then you need to upload this sharp-layer.zip as a layer, and append it to your function. A sample function may look like:
 ```javascript
 import sharp from "sharp";
 import { execSync } from 'child_process';
