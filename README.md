@@ -39,3 +39,6 @@ export const handler = async (event) => {
 }
 ```
 and you can upload sample.heic/avif/png files to test the sharp library on these image formats.
+
+## License
+This library is under MIT License, but please confirm the licenses of the libraries used(sharp, libvips, libheif, libde256, kvazaar, aom...) if you use the layer to create lambda function.
