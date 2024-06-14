@@ -4,8 +4,10 @@ This is a repository working on preparing AWS Lambda layer of Node.js library [s
 
 While sharp supports many image formats, it does not support .heic by default([sharp-libvips](https://github.com/lovell/sharp-libvips), as well as higher bit depth .avif file. This can be solved by make a local compiled version of [libvips](https://github.com/libvips/libvips), with [libheif](https://github.com/strukturag/libheif) compiled with [aom](https://aomedia.googlesource.com/aom/)(for .avif), [libde265](https://github.com/strukturag/libde265) and [kvazaar](https://github.com/ultravideo/kvazaar)(for .heif).
 
+## Prerequisites
+Docker
+
 ## Build
-Environment requirement: Docker
 ```sh
 chmod u+x make.sh
 ./make.sh
@@ -15,7 +17,7 @@ This script will build a docker image(The Dockerfile exists in docker/), which i
 You can also download from [releases](https://github.com/CaoRX/sharp-heic/releases). Currently(1.0.0) the layer file is for arm64 architecture on Node.js 20.x runtime, so you can build your own layer if needed.
 
 ## Usage
-To use this layer, you can create a AWS Lambda function under corresponding runtime(Node.js 20.x) and architecture(e.g. arm64). Then you need to upload this sharp-layer.zip as a layer, and append it to your function. A sample function may look like:
+To use this layer, you can create a AWS Lambda function under corresponding runtime(Node.js 20.x) and architecture(e.g. arm64). Note that you need to set environment variable LIBHEIF_PLUGIN_PATH to /opt/lib/libheif. Then you need to upload this sharp-layer.zip as a layer, and append it to your function. A sample function may look like:
 ```javascript
 import sharp from "sharp";
 import { execSync } from 'child_process';
